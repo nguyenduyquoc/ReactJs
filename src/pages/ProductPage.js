@@ -1,7 +1,9 @@
 import React from "react";
 import {Col, Row} from "react-bootstrap";
 import ProductGrid from "../components/productgrid";
-import axios from "axios";
+import {getProduct} from "../services/product.service";
+// import axios from "axios";
+// import api from "../services/api";
 export default class ProductPage extends React.Component{
     constructor(props) {
         super(props);
@@ -10,22 +12,18 @@ export default class ProductPage extends React.Component{
         }
     }
 
-    componentDidMount() {
-        const url = "https://dummyjson.com/products?limit=12";
+    async componentDidMount() {
         /*fetch(url).then(rs=>rs.json())
             .then(rs=>{
                 this.setState({products:rs.products});
             })
             .catch(err=>{
 
-            })*/
-        axios.get(url).then(rs=>{
-            this.setState({
-                products: rs.data.products
             })
-        }).catch(err=>{
+         */
 
-        })
+        const products = await getProduct(12);
+        this.setState({products:products});
     }
 
 
@@ -39,7 +37,7 @@ export default class ProductPage extends React.Component{
                         products.map((e,i)=>{
                             return (
                                 <Col xs={3}>
-                                    <ProductGrid image={e.thumbnail} title={e.title} text={e.description}/>
+                                    <ProductGrid product={e} />
                                 </Col>
                             )
                         })

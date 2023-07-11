@@ -1,15 +1,19 @@
 import {Card, Button} from "react-bootstrap";
+import {NavLink} from "react-router-dom";
 export default function ProductGrid(props){
-    const image = props.image;
-    const title = props.title;
-    const text = props.text;
+    const product = props.product;
+
     return(
         <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={image} />
+            <Card.Img variant="top" src={product.thumbnail} />
             <Card.Body>
-                <Card.Title>{title}</Card.Title>
+                <Card.Title>
+                    <NavLink to={"/product/"+ product.id}>
+                        {product.name}
+                    </NavLink>
+                </Card.Title>
                 <Card.Text>
-                    {text}
+                    {product.description}
                 </Card.Text>
                 <Button variant="primary">Add to card</Button>
             </Card.Body>

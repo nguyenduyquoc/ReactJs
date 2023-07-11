@@ -11,7 +11,7 @@ export default class CategoryPage extends React.Component{
     }
 
     componentDidMount() {
-        const url = "https://dummyjson.com/products/category/smartphones";
+        const url = "https://dummyjson.com/product";
         axios.get(url).then(rs=>{
             this.setState({
                 categories: rs.data.products
