@@ -34,10 +34,10 @@ export default class ProductPage extends React.Component{
                 <h1>Product Page</h1>
                 <Row>
                     {
-                        products.map((e,i)=>{
+                        products.map((prod,i)=>{
                             return (
                                 <Col xs={3}>
-                                    <ProductGrid product={e} />
+                                    <ProductGrid product={prod} />
                                 </Col>
                             )
                         })

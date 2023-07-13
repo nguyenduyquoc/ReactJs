@@ -11,7 +11,13 @@ export default function NavLayout(props){
                 <NavLink to="/category" className="nav-link">Category</NavLink>
             </Nav.Item>
             <Nav.Item>
-                <NavLink to="/product" className="nav-link">product</NavLink>
+                <NavLink to="/product" className="nav-link">Product</NavLink>
+            </Nav.Item>
+            <Nav.Item>
+                <NavLink to="/cart" className="nav-link">Cart</NavLink>
+            </Nav.Item>
+            <Nav.Item>
+                <NavLink to="/favourite_product" className="nav-link">Favourite</NavLink>
             </Nav.Item>
         </Nav>
     );

@@ -7,22 +7,33 @@ import HomePage from "./pages/HomePage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import CartPage from "./pages/CartPage";
+import STATE from "./context/initState";
+import {useState} from "react";
+import {UserProvider} from "./context/userContext";
+import FavouritesPage from "./pages/FavouritesPage";
 
 function App() {
+    const [state, setState] = useState(STATE);
     return(
-        <div className="App">
-            <Container>
-                <NavLayout/>
-            </Container>
-            <Container>
-                <Routes>
-                    <Route path='/' element={<HomePage/>}/>
-                    <Route path='/category' element={<CategoryPage/>}/>
-                    <Route path='/product' element={<ProductPage/>}/>
-                    <Route path='/product/:id' element={<ProductDetailPage/>}/>
-                </Routes>
-            </Container>
-        </div>
+        <UserProvider value={{state,setState}}>
+            <div className="App">
+                <Container>
+                    <NavLayout/>
+                </Container>
+                <Container>
+                    <Routes>
+                        <Route path='/' element={<HomePage/>}/>
+                        <Route path='/category' element={<CategoryPage/>}/>
+                        <Route path='/product' element={<ProductPage/>}/>
+                        <Route path='/product/:id' element={<ProductDetailPage/>}/>
+                        <Route path='/cart' element={<CartPage/>}/>
+                        <Route path='/favourite_product' element={<FavouritesPage/>}/>
+                    </Routes>
+                </Container>
+            </div>
+        </UserProvider>
+
     );
 }
 
