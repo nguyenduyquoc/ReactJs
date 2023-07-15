@@ -4,9 +4,8 @@ import {NavLink} from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../context/userContext";
 export default function ProductGrid(props){
-    const product = props.product;
-    const {state,setState} = useContext(UserContext);// connect to   global
-    const [isFavourite, setIsFavourite] = useState(false);
+    const product = props.product;// lấy dữ liệu từ ProductPage
+    const {state,dispatch} = useContext(UserContext);// connect to   global
     const addToCart = ()=>{
         const cart = state.cart;
         let check = true;
@@ -21,7 +20,11 @@ export default function ProductGrid(props){
             product.buy_qty = 1;
             cart.push(product);
         }
-        setState({...state,cart:cart});
+        // setState({...state,cart:cart});
+        dispatch({type:"UPDATE_CART", payload:cart})
+        setTimeout(()=>{
+            dispatch({type:"HIDE_LOADING"});
+        },2000);
         alert("Đã thêm vào giỏ hàng");
         // state.cart = cart;
         // setState(state);
@@ -38,16 +41,19 @@ export default function ProductGrid(props){
         });
         if (check) {
             favourite.push(product);
-            setState({ ...state, favourites: favourite });
-            setIsFavourite(true);
-            alert("Đã thêm vào danh sách yêu thích");
+            // setState({ ...state, favourites: favourite });
+            dispatch({type:"UPDATE_FAVOURITE", payload: favourite});
+            dispatch({type:"HIDE_LOADING"})
         } else {
             const updateFavourite = favourite.filter((e) => e.id !== product.id);
-            setState({ ...state, favourites: updateFavourite });
-            setIsFavourite(false);
-            alert("Đã xóa sản phẩm ra khỏi danh sách yêu thích");
+            //setState({ ...state, favourites: updateFavourite });
+            dispatch({type:"UPDATE_FAVOURITE", payload: updateFavourite});
+            dispatch({type:"HIDE_LOADING"})
         }
     }
+
+    const isFavourite = state.favourites.find((p) => p.id === product.id);
+
     return(
         <Card style={{ width: '18rem' }}>
             <Card.Img variant="top" src={product.thumbnail} />

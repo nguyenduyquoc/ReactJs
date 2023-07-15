@@ -7,17 +7,20 @@ import './ProductDetail.css';
 function ProductDetailPage(){
     const {id} = useParams("id");
     const [product, setProduct] = useState({});
+    const {state, dispatch} = useContext(UserContext);// connect to global
 
     const find = async ()=>{
+        dispatch({type:"SHOW_LOADING"});
         const p = await detailProduct(id);
         setProduct(p);
+        dispatch({type:"HIDE_LOADING"});
     }
     useEffect(()=>{
         // call api -> set data product
         find();
     }, []); // component did mount
 
-    const {state, setState} = useContext(UserContext);// connect to global
+
     const addToCart = ()=>{
         // console.log(state);
 
@@ -36,8 +39,11 @@ function ProductDetailPage(){
             product.buy_qty = 1;
             cart.push(product);
         }
-        setState({...state, cart:cart});
-        alert("Đã thêm vào giỏ hàng");
+        // setState({...state, cart:cart});
+        dispatch({type:"UPDATE_CART", payload:cart});
+        dispatch({type:"HIDE_LOADING"});
+
+        // alert("Đã thêm vào giỏ hàng");
     }
 
     return (
